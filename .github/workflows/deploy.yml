@@ -1,0 +1,50 @@
+name: Deploy
+
+on:
+  schedule:
+    - cron: "0 4,16 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+
+      - name: Cache 根目录 node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node20-root-${{ hashFiles('package-lock.json') }}
+
+      - name: Cache web/node_modules
+        uses: actions/cache@v4
+        with:
+          path: web/node_modules
+          key: ${{ runner.os }}-node20-web-${{ hashFiles('web/package-lock.json') }}
+
+      - name: 安装根目录依赖
+        run: npm install
+
+      - name: 拉取 RSS 并生成静态资产
+        run: npm run gen
+
+      - name: 安装前端依赖并构建
+        run: npm run build
+
+      - name: 部署到 Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CF_PAGES_TOKEN }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          projectName: ippclub-blogroll
+          directory: web/dist

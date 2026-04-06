@@ -1,0 +1,24 @@
+name: Validate Blog Submission
+
+on:
+  pull_request:
+    paths:
+      - 'blogs/blogs.yaml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+
+      - name: 安装依赖
+        run: npm install
+
+      - name: 校验 blogs.yaml
+        run: npm run validate
