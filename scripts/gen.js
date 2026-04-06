@@ -207,8 +207,8 @@ ${opmlOutlines}
   const feed = new RSS({
     title: "IppClub Blogroll",
     description: "东南大学 I++ Club 收集同学们的博客",
-    feed_url: "https://blogroll.ipp.club/rss.xml",
-    site_url: "https://blogroll.ipp.club/",
+    feed_url: "https://blogroll.ippclub.org/rss.xml",
+    site_url: "https://blogroll.ippclub.org/",
     copyright: `${new Date().getFullYear()} IppClub`,
     language: "zh-CN",
     pubDate: now.toUTCString(),

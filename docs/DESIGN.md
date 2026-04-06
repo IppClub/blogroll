@@ -76,7 +76,7 @@ Vite 构建前端（Vue 3 + Vite 5）
   │
   ▼
 部署到 Cloudflare Pages
-  └── https://blogroll.ipp.club
+  └── https://blogroll.ippclub.org
 ```
 
 ---
