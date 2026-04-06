@@ -13,9 +13,9 @@
 
 | 资源 | 地址 |
 |------|------|
-| 🌐 **聚合页面** | https://blogroll.ippclub.org （建设中） |
-| 📡 **聚合 RSS** | https://blogroll.ippclub.org/rss.xml |
-| 📋 **OPML** | https://blogroll.ippclub.org/opml.xml |
+| 🌐 **聚合页面** | https://ippclub.org/blogroll |
+| 📡 **聚合 RSS** | https://ippclub.org/blogroll/rss.xml |
+| 📋 **OPML** | https://ippclub.org/blogroll/opml.xml |
 
 ---
 
