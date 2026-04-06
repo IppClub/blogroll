@@ -1,0 +1,92 @@
+/* ── 全局 CSS 变量 ─────────────────────────────────────────────────────────── */
+:root {
+  --color-primary: #6B4EFF;         /* 主色：紫色 */
+  --color-primary-light: #8B6FFF;
+  --color-bg: #F5F5F7;              /* 页面背景：浅灰 */
+  --color-card: #FFFFFF;            /* 卡片背景：白 */
+  --color-text: #1D1D1F;            /* 主文字：深黑 */
+  --color-text-secondary: #6E6E73;  /* 次文字：灰 */
+  --color-border: #E5E5EA;
+  --radius-card: 8px;
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --header-height: 60px;
+}
+
+/* ── 重置 & 基础 ────────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-bg);
+  font-family: system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ── 顶部导航栏 ─────────────────────────────────────────────────────────────── */
+#header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  background: var(--color-card);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+#header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ── 主容器 ─────────────────────────────────────────────────────────────────── */
+#container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: calc(var(--header-height) + 20px) 20px 20px;
+}
+
+/* ── 响应式：移动端单列 ─────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  #container {
+    padding: calc(var(--header-height) + 12px) 12px 12px;
+  }
+}
+
+/* ── 自定义滚动条（WebKit） ─────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-light);
+}

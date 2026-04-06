@@ -1,0 +1,8 @@
+node_modules/
+web/dist/
+web/src/assets/data.json
+web/src/assets/blogs.json
+web/public/rss.xml
+web/public/opml.xml
+.DS_Store
+*.log

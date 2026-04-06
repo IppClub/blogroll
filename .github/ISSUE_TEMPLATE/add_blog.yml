@@ -1,0 +1,68 @@
+name: 申请加入博客列表
+description: 提交你的博客，加入东南大学 I++ Club Blogroll
+title: "[博客申请] <你的博客名称>"
+labels: ["blog-submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢你的申请！请填写以下信息，管理员审核后会将你的博客添加到列表中。
+
+  - type: input
+    id: blog_name
+    attributes:
+      label: 博客名称
+      description: 你的博客展示名称
+      placeholder: "张三的技术博客"
+    validations:
+      required: true
+
+  - type: input
+    id: html_url
+    attributes:
+      label: 博客地址（HTML）
+      description: 你的博客网站地址
+      placeholder: "https://blog.example.com"
+    validations:
+      required: true
+
+  - type: input
+    id: rss_url
+    attributes:
+      label: RSS / Atom 订阅地址
+      description: 如果没有 RSS，请填 ---
+      placeholder: "https://blog.example.com/feed.xml 或 ---"
+
+  - type: input
+    id: github_username
+    attributes:
+      label: GitHub 用户名（可选）
+      placeholder: "your-github-username"
+
+  - type: input
+    id: department
+    attributes:
+      label: 院系（可选）
+      placeholder: "计算机科学与工程学院"
+
+  - type: input
+    id: tags
+    attributes:
+      label: 标签（可选，逗号分隔）
+      placeholder: "技术, Linux, 前端"
+
+  - type: checkboxes
+    id: confirm_seu
+    attributes:
+      label: 身份确认
+      options:
+        - label: 我是东南大学在读学生或校友
+          required: true
+
+  - type: checkboxes
+    id: confirm_content
+    attributes:
+      label: 内容确认
+      options:
+        - label: 我的博客内容健康合法，符合社区行为准则
+          required: true

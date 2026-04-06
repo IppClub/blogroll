@@ -1,0 +1,17 @@
+{
+  "name": "ippclub-blogroll",
+  "version": "1.0.0",
+  "description": "东南大学 I++ Club 博客聚合",
+  "scripts": {
+    "gen": "node scripts/gen.js",
+    "validate": "node scripts/validate.js",
+    "build": "cd web && npm install && npm run build",
+    "dev": "cd web && npm install && npm run dev"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0",
+    "rss": "^1.2.2",
+    "rss-parser": "^3.13.0",
+    "sanitize-html": "^2.12.0"
+  }
+}
