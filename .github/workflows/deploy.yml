@@ -2,7 +2,7 @@ name: Deploy
 
 on:
   schedule:
-    - cron: "0 4,16 * * *"   # 北京时间每天 12:00 和 0:00
+    - cron: "0 * * * *"   # 每小时更新一次
   workflow_dispatch:           # 允许手动触发
 
 # 部署到 GitHub Pages 需要写权限

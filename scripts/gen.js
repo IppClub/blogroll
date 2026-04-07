@@ -21,8 +21,8 @@ const MAX_SUMMARY_CHARS = 400;   // 摘要最大字符数
 // ── 路径配置 ────────────────────────────────────────────────────────────────
 const ROOT = path.resolve(__dirname, "..");
 const BLOGS_YAML = path.join(ROOT, "blogs", "blogs.yaml");
-const OUT_BLOGS_JSON = path.join(ROOT, "web", "src", "assets", "blogs.json");
-const OUT_DATA_JSON = path.join(ROOT, "web", "src", "assets", "data.json");
+const OUT_BLOGS_JSON = path.join(ROOT, "web", "public", "blogs.json");
+const OUT_DATA_JSON = path.join(ROOT, "web", "public", "data.json");
 const OUT_OPML = path.join(ROOT, "web", "public", "opml.xml");
 const OUT_RSS = path.join(ROOT, "web", "public", "rss.xml");
 

@@ -70,25 +70,12 @@ watch(
 
 <template>
   <div class="search-bar">
-    <!-- 关键词搜索框 -->
-    <input
-      v-model="keyword"
-      type="text"
-      class="search-input"
-      placeholder="搜索文章标题、摘要、博主名..."
-      aria-label="搜索文章"
-    />
-
-    <!-- 院系筛选下拉 -->
-    <select
-      v-model="selectedDepartment"
-      class="dept-select"
-      aria-label="按院系筛选"
-    >
+    <input v-model="keyword" type="text" class="search-input"
+      placeholder="🔍 搜索文章标题、摘要、博主名..." aria-label="搜索文章" />
+    <div class="divider"></div>
+    <select v-model="selectedDepartment" class="dept-select" aria-label="按院系筛选">
       <option value="">全部院系</option>
-      <option v-for="dept in departments" :key="dept" :value="dept">
-        {{ dept }}
-      </option>
+      <option v-for="dept in departments" :key="dept" :value="dept">{{ dept }}</option>
     </select>
   </div>
 </template>
@@ -99,45 +86,42 @@ watch(
   gap: 10px;
   margin-bottom: 16px;
   flex-wrap: wrap;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 10px 14px;
 }
-
 .search-input {
   flex: 1;
-  min-width: 200px;
-  padding: 8px 14px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-card);
+  min-width: 180px;
+  padding: 6px 0;
+  border: none;
   font-size: 0.9rem;
   color: var(--color-text);
-  background: var(--color-card);
+  background: transparent;
   outline: none;
-  transition: border-color 0.2s;
 }
-
-.search-input:focus {
-  border-color: var(--color-primary);
+.search-input::placeholder {
+  color: #9ca3af;
 }
-
+.divider {
+  width: 1px;
+  background: var(--color-border);
+  align-self: stretch;
+  margin: 2px 0;
+}
 .dept-select {
-  padding: 8px 14px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-card);
-  font-size: 0.9rem;
-  color: var(--color-text);
-  background: var(--color-card);
+  padding: 4px 8px;
+  border: none;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  background: transparent;
   outline: none;
   cursor: pointer;
-  transition: border-color 0.2s;
 }
-
-.dept-select:focus {
-  border-color: var(--color-primary);
-}
-
 @media (max-width: 768px) {
-  .search-input,
-  .dept-select {
-    width: 100%;
-  }
+  .search-bar { flex-direction: column; }
+  .divider { display: none; }
+  .search-input, .dept-select { width: 100%; }
 }
 </style>

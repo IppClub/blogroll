@@ -1,15 +1,34 @@
 <script setup>
-import { ref } from 'vue'
-import articles from './assets/data.json'
-import blogs from './assets/blogs.json'
+import { ref, onMounted } from 'vue'
 import SearchBar from './components/SearchBar.vue'
 import ArticleCard from './components/ArticleCard.vue'
 import BlogCard from './components/BlogCard.vue'
 import logo from './assets/logo.svg'
 import '../src/assets/base.css'
 
-// 过滤后的文章列表，默认显示全部
-const filteredArticles = ref(articles)
+const articles = ref([])
+const blogs = ref([])
+const filteredArticles = ref([])
+const loading = ref(true)
+const error = ref(null)
+
+onMounted(async () => {
+  try {
+    const base = import.meta.env.BASE_URL
+    const [dataRes, blogsRes] = await Promise.all([
+      fetch(`${base}data.json`),
+      fetch(`${base}blogs.json`)
+    ])
+    if (!dataRes.ok || !blogsRes.ok) throw new Error('数据加载失败')
+    articles.value = await dataRes.json()
+    blogs.value = await blogsRes.json()
+    filteredArticles.value = articles.value
+  } catch (e) {
+    error.value = e.message
+  } finally {
+    loading.value = false
+  }
+})
 
 // SearchBar 的 filter 事件处理
 function onFilter(result) {
@@ -22,8 +41,11 @@ function onFilter(result) {
   <header id="header">
     <div id="header-inner">
       <div class="header-logo">
-        <img :src="logo" alt="IppClub Logo" class="logo-img" />
-        <span class="header-title">IppClub Blogroll</span>
+        <img :src="logo" alt="SEU Logo" class="logo-img" />
+        <div>
+          <div class="header-title">SEU-IppClub</div>
+          <div class="header-subtitle">同学博客聚合</div>
+        </div>
       </div>
       <a
         href="https://github.com/IppClub/blogroll"
@@ -53,14 +75,19 @@ function onFilter(result) {
       <!-- 左侧：文章列表 -->
       <main class="main-column">
         <SearchBar :articles="articles" :blogs="blogs" @filter="onFilter" />
-        <div v-if="filteredArticles.length === 0" class="empty-tip">
-          暂无匹配的文章
-        </div>
-        <ArticleCard
-          v-for="(article, idx) in filteredArticles"
-          :key="idx"
-          :article="article"
-        />
+        <div v-if="loading" class="loading-tip">⏳ 正在加载文章...</div>
+        <div v-else-if="error" class="error-tip">❌ {{ error }}</div>
+        <template v-else>
+          <div class="article-count">共 {{ filteredArticles.length }} 篇文章</div>
+          <div v-if="filteredArticles.length === 0" class="empty-tip">
+            暂无匹配的文章
+          </div>
+          <ArticleCard
+            v-for="(article, idx) in filteredArticles"
+            :key="idx"
+            :article="article"
+          />
+        </template>
       </main>
 
       <!-- 右侧：博客列表 -->
@@ -80,61 +107,78 @@ function onFilter(result) {
 .header-logo {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
-
 .logo-img {
-  height: 36px;
+  height: 38px;
+  width: 38px;
 }
-
 .header-title {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--color-primary);
+  letter-spacing: 0.02em;
 }
-
+.header-subtitle {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  margin-top: 1px;
+}
 .github-link {
-  color: var(--color-text);
+  color: var(--color-text-secondary);
   display: flex;
   align-items: center;
-  transition: color 0.2s;
+  padding: 6px;
+  border-radius: 8px;
+  transition: background var(--transition), color var(--transition);
 }
-
 .github-link:hover {
+  background: var(--color-accent-light);
   color: var(--color-primary);
 }
-
 .two-column {
   display: grid;
-  grid-template-columns: 65fr 35fr;
-  gap: 20px;
+  grid-template-columns: 1fr 320px;
+  gap: 24px;
   align-items: start;
 }
-
 .sidebar-title {
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  color: var(--color-text);
-  margin: 0 0 12px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-secondary);
+  margin: 0 0 12px 4px;
 }
-
 .empty-tip {
   text-align: center;
   color: var(--color-text-secondary);
-  padding: 40px 0;
+  padding: 60px 0;
+  font-size: 0.9rem;
 }
-
-@media (max-width: 768px) {
+.loading-tip {
+  text-align: center;
+  color: var(--color-text-secondary);
+  padding: 60px 0;
+  font-size: 0.9rem;
+}
+.error-tip {
+  text-align: center;
+  color: #dc2626;
+  padding: 60px 0;
+  font-size: 0.9rem;
+}
+.article-count {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 12px;
+  padding-left: 4px;
+}
+@media (max-width: 900px) {
   .two-column {
     grid-template-columns: 1fr;
   }
-
-  .side-column {
-    order: 2;
-  }
-
-  .main-column {
-    order: 1;
-  }
+  .side-column { order: 2; }
+  .main-column { order: 1; }
 }
 </style>

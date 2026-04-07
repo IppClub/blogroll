@@ -1,21 +1,22 @@
-/* ── 全局 CSS 变量 ─────────────────────────────────────────────────────────── */
+/* ── 全局 CSS 变量 ── */
 :root {
-  --color-primary: #6B4EFF;         /* 主色：紫色 */
-  --color-primary-light: #8B6FFF;
-  --color-bg: #F5F5F7;              /* 页面背景：浅灰 */
-  --color-card: #FFFFFF;            /* 卡片背景：白 */
-  --color-text: #1D1D1F;            /* 主文字：深黑 */
-  --color-text-secondary: #6E6E73;  /* 次文字：灰 */
-  --color-border: #E5E5EA;
-  --radius-card: 8px;
-  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.08);
-  --header-height: 60px;
+  --color-primary: #162B5B;           /* SEU 深蓝 */
+  --color-primary-hover: #1e3a7a;
+  --color-accent: #FFCC00;            /* SEU 金黄 */
+  --color-accent-light: rgba(255, 204, 0, 0.15);
+  --color-bg: #F0F2F5;                /* 页面背景 */
+  --color-card: #FFFFFF;
+  --color-text: #1a1a2e;
+  --color-text-secondary: #6b7280;
+  --color-border: #e5e7eb;
+  --radius-card: 12px;
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-card-hover: 0 4px 12px rgba(22,43,91,0.12);
+  --header-height: 64px;
+  --transition: 0.2s ease;
 }
 
-/* ── 重置 & 基础 ────────────────────────────────────────────────────────────── */
-*,
-*::before,
-*::after {
+*, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -23,70 +24,59 @@
 
 body {
   background-color: var(--color-bg);
-  font-family: system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: system-ui, -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   color: var(--color-text);
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
 a {
   color: var(--color-primary);
   text-decoration: none;
+  transition: color var(--transition);
 }
 
 a:hover {
-  text-decoration: underline;
+  color: var(--color-primary-hover);
 }
 
-/* ── 顶部导航栏 ─────────────────────────────────────────────────────────────── */
+/* ── Header ── */
 #header {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   height: var(--header-height);
-  background: var(--color-card);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
   z-index: 100;
 }
 
 #header-inner {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 24px;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-/* ── 主容器 ─────────────────────────────────────────────────────────────────── */
+/* ── 主容器 ── */
 #container {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: calc(var(--header-height) + 20px) 20px 20px;
+  padding: calc(var(--header-height) + 24px) 24px 32px;
 }
 
-/* ── 响应式：移动端单列 ─────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   #container {
-    padding: calc(var(--header-height) + 12px) 12px 12px;
+    padding: calc(var(--header-height) + 16px) 16px 24px;
   }
 }
 
-/* ── 自定义滚动条（WebKit） ─────────────────────────────────────────────────── */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-primary);
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-primary-light);
-}
+/* ── 滚动条 ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-primary); }
