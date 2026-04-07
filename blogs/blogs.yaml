@@ -39,3 +39,14 @@
     - "科技"
     - "周刊"
   active: true
+
+- name: "何山"
+  html: "https://www.harkerhand.cn/"
+  rss: "https://www.harkerhand.cn/atom.xml"
+  github: "harkerhand"
+  department: "CS"
+  tags:
+    - "Rust"
+    - "is"
+    - "best"
+  active: true
