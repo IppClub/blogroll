@@ -4,7 +4,7 @@
 
 为东南大学 I++ Club 构建一个博客聚合平台。收集成员的个人博客，自动拉取 RSS 内容，在统一的页面上展示最新文章，同时提供 RSS 聚合订阅和 OPML 文件供 RSS 阅读器导入。
 
-整体目标：**完全自托管、安全、可扩展**。不依赖任何第三方数据库或表单服务，所有数据存储在 Git 仓库中，通过 GitHub Actions 自动化定时更新，部署到 Cloudflare Pages。
+整体目标：**完全自托管、安全、可扩展**。不依赖任何第三方数据库或表单服务，所有数据存储在 Git 仓库中，通过 GitHub Actions 自动化定时更新，部署到 GitHub Pages。
 
 ---
 
@@ -56,7 +56,7 @@
 blogs/blogs.yaml（唯一数据源，存储在 Git 仓库）
   │
   ▼
-GitHub Actions 定时触发（每天 UTC 4:00 和 16:00，即北京时间 12:00 和 0:00）
+GitHub Actions 定时触发（每小时一次）
   │
   ▼
 scripts/gen.js 并行拉取所有有效 RSS
@@ -66,8 +66,8 @@ scripts/gen.js 并行拉取所有有效 RSS
   │
   ▼
 生成静态资产：
-  ├── web/src/assets/data.json   （文章数据，供前端展示）
-  ├── web/src/assets/blogs.json  （博客列表，供前端展示）
+  ├── web/public/data.json   （文章数据，运行时 fetch 加载）
+  ├── web/public/blogs.json  （博客列表，运行时 fetch 加载）
   ├── web/public/rss.xml         （聚合 RSS，供 RSS 阅读器订阅）
   └── web/public/opml.xml        （OPML 文件，供 RSS 阅读器批量导入）
   │
@@ -75,8 +75,8 @@ scripts/gen.js 并行拉取所有有效 RSS
 Vite 构建前端（Vue 3 + Vite 5）
   │
   ▼
-部署到 Cloudflare Pages
-  └── https://blogroll.ippclub.org
+部署到 GitHub Pages
+  └── https://ippclub.github.io/blogroll
 ```
 
 ---
@@ -116,12 +116,25 @@ Vite 构建前端（Vue 3 + Vite 5）
 
 选择双重防护的理由：详见第 5 节。
 
-### 部署：Cloudflare Pages vs Cloudflare Workers
+### 部署：GitHub Pages
 
-选择 Cloudflare Pages 的理由：
-- **更适合纯静态站**：Pages 就是为静态文件服务设计的
-- **配置更简单**：不需要写 Workers 脚本
-- **无请求数限制**：Pages 免费计划没有请求数限制（Workers 免费计划有）
+选择 GitHub Pages 的理由：
+- **与现有基础设施一致**：IppClub 的其他项目也部署在 GitHub Pages，零额外账号和配置
+- **更适合纯静态站**：GitHub Pages 就是为静态文件服务设计的
+- **免费且无限制**：完全免费，无构建次数限制
+- **无需额外 Secrets**：使用内置 `GITHUB_TOKEN`，不需要额外 API Token
+
+### 数据加载：运行时 fetch vs 构建时 import
+
+选择运行时 fetch 的理由：
+- **数据实时性**：每次打开页面都会请求最新的 `data.json`，而非构建时打包进 bundle 的静态数据
+- **前端与数据解耦**：`data.json` 作为独立静态文件存在，未来可接入 CDN 或更换数据源
+- **加载状态体验**：支持 loading/error 状态展示，用户体验更好
+
+### 站点配色：SEU 官方色系
+
+- **主色 #162B5B**（SEU 深蓝）：用于标题、链接、强调
+- **金黄 #FFCC00**（SEU 金黄）：用于标签、徽章背景
 
 ---
 

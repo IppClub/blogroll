@@ -25,9 +25,8 @@ const props = defineProps({
       <a :href="article.htmlUrl" target="_blank" rel="noopener noreferrer" class="article-author">
         {{ article.name }}
       </a>
-      <span v-if="article.pubDateYYMMDD" class="article-date">
-        {{ article.pubDateYYMMDD }}
-      </span>
+      <span v-if="article.pubDateYYMMDD" class="meta-sep">·</span>
+      <span v-if="article.pubDateYYMMDD" class="article-date">{{ article.pubDateYYMMDD }}</span>
     </div>
 
     <!-- 标签列表 -->
@@ -44,70 +43,64 @@ const props = defineProps({
 .article-card {
   background: var(--color-card);
   border-radius: var(--radius-card);
-  box-shadow: var(--shadow-card);
-  padding: 16px 20px;
-  margin-bottom: 16px;
-  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid var(--color-border);
+  padding: 18px 20px;
+  margin-bottom: 12px;
+  transition: box-shadow var(--transition), border-color var(--transition), transform var(--transition);
+  cursor: default;
 }
-
 .article-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--shadow-card-hover);
+  border-color: rgba(22, 43, 91, 0.2);
+  transform: translateY(-1px);
 }
-
 .article-title {
   font-size: 1rem;
   font-weight: 600;
-  margin-bottom: 8px;
-  line-height: 1.4;
+  margin-bottom: 6px;
+  line-height: 1.45;
 }
-
 .article-title a {
   color: var(--color-text);
 }
-
 .article-title a:hover {
   color: var(--color-primary);
 }
-
 .article-meta {
   display: flex;
   align-items: center;
-  gap: 12px;
-  font-size: 0.85rem;
+  gap: 8px;
+  font-size: 0.8rem;
   margin-bottom: 8px;
+  color: var(--color-text-secondary);
 }
-
 .article-author {
   color: var(--color-primary);
   font-weight: 500;
+  font-size: 0.8rem;
 }
-
-.article-date {
-  color: var(--color-text-secondary);
-}
-
+.meta-sep { color: var(--color-border); }
+.article-date { color: var(--color-text-secondary); }
 .article-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 5px;
   margin-bottom: 8px;
 }
-
 .tag {
-  background: rgba(107, 78, 255, 0.08);
+  background: var(--color-accent-light);
   color: var(--color-primary);
-  border-radius: 4px;
-  padding: 2px 8px;
-  font-size: 0.75rem;
+  border-radius: 99px;
+  padding: 2px 10px;
+  font-size: 0.72rem;
+  font-weight: 500;
 }
-
 .article-summary {
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   color: var(--color-text-secondary);
-  line-height: 1.6;
+  line-height: 1.65;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
